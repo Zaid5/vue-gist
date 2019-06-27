@@ -12,6 +12,15 @@
         <app-blue></app-blue>
         <app-green></app-green>
         <app-red></app-red>
+        <div class="form-group">
+          <label> Username</label>
+          <input type="text" class="form-control" v-model="user.username">
+        </div>
+        <div class="form-group">
+          <label> Email</label>
+          <input type="text" class="form-control" v-model="user.email">
+        </div>
+        <button class="btn btn-primary" @click="submit">Submit</button>
       </div>
     </div>
   </div>
@@ -25,7 +34,11 @@
     name: 'app',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        msg: 'Welcome to Your Vue.js App',
+        user:{
+          username:'',
+          email:'',
+        },
       }
     },
     components:{
@@ -33,11 +46,16 @@
       appGreen: Green,
       appRed: Red,
     },
-    mounted() {
-      let gistScript = document.createElement('script')
-      gistScript.setAttribute('src', 'https://gist.github.com/username/gist-id.js')
-      document.head.appendChild(gistScript)
-    },
+    methods:{
+      submit(){
+        this.$http.post('https://vue-gist.firebaseio.com/data.json', this.user)
+            .then(response => {
+              console.log(response);
+            }, error=>{
+                console.log(error);
+            });
+      }
+    }
   }
 </script>
 
