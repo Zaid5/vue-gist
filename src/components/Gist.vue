@@ -3,7 +3,10 @@
     <div class="form-group">
     <button class="btn btn-primary" @click="fetchGist">Get Gist</button>
     <br><br>
-    <p>{{gist}}</p>
+    <!-- <p>{{gist}}</p> -->
+    <div>
+      {{gistArray}}
+    </div>
     </div>
   </div> 
 </template>
@@ -13,6 +16,7 @@ export default {
   data(){
     return{
       gist:'',
+      gistArray:[]
     }
   },
   created(){
@@ -22,9 +26,16 @@ export default {
     fetchGist() {
       this.$http.get('https://api.github.com/gists')
           .then(response => {
-            this.gist = response.data[0]
+            // this.gist = response.data[0]
             return response.json();
           })
+          .then(data => {
+            const resultArray = [];
+            for (let key in data) {
+              resultArray.push(data[key]);
+            }
+            this.gistArray = resultArray;
+          });
     }
   }    
 }
