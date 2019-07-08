@@ -13,7 +13,8 @@
         <app-green></app-green>
         <app-red></app-red>
         <!-- <app-user></app-user> -->
-        <app-gist></app-gist>
+        <!-- <app-gist></app-gist> -->
+        <app-new-gist></app-new-gist>
       </div>
     </div>
   </div>
@@ -25,6 +26,7 @@
   import Red from './components/Red';
   import User from './components/User';
   import Gist from './components/Gist';
+  import NewGist from './components/NewGist';
   export default {
     name: 'app',
     data () {
@@ -38,6 +40,7 @@
       appRed: Red,
       appUser: User,
       appGist: Gist,
+      appNewGist: NewGist
     }
   }
 </script>
