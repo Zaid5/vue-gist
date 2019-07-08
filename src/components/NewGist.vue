@@ -6,10 +6,10 @@
       <div class='col-md-4'>
         <!-- {{gistArray}} -->
         <ul class="list-group">
-          <p>Username / Title </p>
+          <p>OwnerId / Username / Title </p>
         <li class="list-group-item" v-for="g in gistArray">
           <!-- <p>{{g.url}}</p> -->
-          <p>{{g.owner.login}} / {{g.description}}</p>
+          <p><a :href="g.html_url">{{g.owner.id}} / {{g.owner.login}} / {{g.description}}</a></p>
         </li>
       </ul>
       </div>
@@ -35,6 +35,7 @@
         <!-- {{gistArray}} -->
         <ul class="list-group">
           <p>Created At</p>
+          {{gUrl}}
         <li class="list-group-item" v-for="g in gistArray">
           <!-- <p>{{g.url}}</p> -->
           <p>{{g.created_at}}</p>
@@ -50,7 +51,7 @@ export default {
   data(){
     return{
       gist:'',
-      gistArray:['owner']
+      gistArray:[],
     }
   },
   created(){

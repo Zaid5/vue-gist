@@ -14,7 +14,8 @@
         <app-red></app-red>
         <!-- <app-user></app-user> -->
         <!-- <app-gist></app-gist> -->
-        <app-new-gist></app-new-gist>
+        <!-- <app-new-gist></app-new-gist> -->
+        <router-view></router-view>
       </div>
     </div>
   </div>
