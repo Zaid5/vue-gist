@@ -1,11 +1,17 @@
 <template>
   <div>
     <div class="form-group">
-    <button class="btn btn-primary" @click="fetchGist">Get Gist</button>
+    <!-- <button class="btn btn-primary" @click="fetchGist">Get Gist</button> -->
     <br><br>
     <!-- <p>{{gist}}</p> -->
     <div>
-      {{gistArray}}
+      <!-- {{gistArray}} -->
+      <ul class="list-group">
+      <li class="list-group-item" v-for="g in gistArray">
+        <p>{{g.url}}</p> 
+        {{g.owner}}
+      </li>
+    </ul>
     </div>
     </div>
   </div> 
