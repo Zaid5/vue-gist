@@ -7,13 +7,13 @@ import { routes } from "./routes"
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  routes,    //router: router
-  mode: 'history' 
+    routes, //router: router
+    mode: 'history'
 });
 Vue.use(VueResource);
-Vue.http.options.root = 'https://vue-gist.firebaseio.com/data.json';
+// Vue.http.options.root = 'https://vue-gist.firebaseio.com/data.json';
 new Vue({
-  el: '#app',
-  router,
-  render: h => h(App)
+    el: '#app',
+    router,
+    render: h => h(App)
 })
