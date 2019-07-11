@@ -1,49 +1,33 @@
 <template>
-  <div>
-    <div class="form-group">
-      <!-- <button class="btn btn-primary" @click="fetchGist">Get Gist</button> -->
-      <!-- <p>{{gist}}</p> -->
-      <div class='col-md-4'>
-        <!-- {{gistArray}} -->
-        <ul class="list-group">
-          <p>OwnerId / Username / Title </p>
-        <li class="list-group-item" v-for="g in gistArray">
-          <!-- <p>{{g.url}}</p> -->
-          <p><a :href="g.html_url">{{g.owner.id}} / {{g.owner.login}} / {{g.description}}</a></p>
-        </li>
-      </ul>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <!-- <p>{{gist}}</p> -->
-      <div class='col-md-4'>
-        <!-- {{gistArray}} -->
-        <ul class="list-group">
-          <p>Stars / Forks / Comments </p>
-        <li class="list-group-item" v-for="g in gistArray">
-          <!-- <p>{{g.url}}</p> -->
-          <p>{{g.stars}}- / {{g.forks}}- / {{g.comments}}</p>
-        </li>
-      </ul>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <!-- <p>{{gist}}</p> -->
-      <div class='col-md-4'>
-        <!-- {{gistArray}} -->
-        <ul class="list-group">
-          <p>Created At</p>
-          {{gUrl}}
-        <li class="list-group-item" v-for="g in gistArray">
-          <!-- <p>{{g.url}}</p> -->
-          <p>{{g.created_at}}</p>
-        </li>
-      </ul>
-      </div>
-    </div>
-  </div> 
+  <div class="container">
+    <p><input type="text" v-model="username">
+    <button @click="searchGist">Search Gist</button></p>
+    <table class="table table-bordered">
+      <caption>List of Gists</caption>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Owner Id</th>
+          <th scope="col">Username</th>
+          <th scope="col">Title</th>
+          <th scope="col">Stars</th>
+          <th scope="col">Forks</th>
+          <th scope="col">Comments</th>
+          <th scope="col">Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="g in gistArray">
+          <th scope="row">{{g.owner.id}}</th>
+          <td>{{g.owner.login}}</td>
+          <td><a :href="g.html_url">{{g.description}}</a></td>
+          <td>{{g.stars}}TBD</td>
+          <td>{{g.forks}}TBD</td>
+          <td>{{g.comments}}</td>
+          <td>{{g.created_at}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -52,6 +36,7 @@ export default {
     return{
       gist:'',
       gistArray:[],
+      username:'',
     }
   },
   created(){
@@ -60,6 +45,20 @@ export default {
   methods: {
     fetchGist() {
       this.$http.get('https://api.github.com/gists/public')
+          .then(response => {
+            // this.gist = response.data[0]
+            return response.json();
+          })
+          .then(data => {
+            const resultArray = [];
+            for (let key in data) {
+              resultArray.push(data[key]);
+            }
+            this.gistArray = resultArray;
+          });
+    },
+    searchGist(){
+      this.$http.get("'https://api.github.com/users/"+this.username+"/gists'")
           .then(response => {
             // this.gist = response.data[0]
             return response.json();
