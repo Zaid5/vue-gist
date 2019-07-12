@@ -3,7 +3,7 @@
     <p><input type="text" placeholder='Enter keyword' v-model="username">
     <button @click="searchGist">Search Gist</button></p>
     <table class="table table-bordered">
-      <caption>List of Gists</caption>
+      <caption>List of Gists ({{gistArray.length}})</caption>
       <thead class="thead-dark">
         <tr>
           <th scope="col">Owner Id</th>
@@ -27,10 +27,12 @@
         </tr>
       </tbody>
     </table>
+    <!-- <v-paginator :resource_url=resource_url @update="updateResource"></v-paginator> -->
   </div>
 </template>
 
 <script>
+import VuePaginator from 'vuejs-paginator'
 export default {
   name: 'newGist',
   data(){
@@ -38,8 +40,12 @@ export default {
       gist:'',
       gistArray:[],
       username:'',
+      resource_url: "https://api.github.com/gists/public"
     }
   },
+  components: {
+        VPaginator: VuePaginator
+    },
   created(){
     this.fetchGist();
   },
@@ -71,6 +77,9 @@ export default {
             }
             this.gistArray = resultArray;
           });
+    },
+    updateResource(data){
+      this.gistArray = data
     }
   }    
 }
