@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <p><input type="text" v-model="username">
+    <p><input type="text" placeholder='Enter keyword' v-model="username">
     <button @click="searchGist">Search Gist</button></p>
     <table class="table table-bordered">
       <caption>List of Gists</caption>
@@ -32,6 +32,7 @@
 
 <script>
 export default {
+  name: 'newGist',
   data(){
     return{
       gist:'',
